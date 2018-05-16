@@ -13,27 +13,27 @@
     <div>
     <div class='container' id='board'>
         <!-- Row 1-->
-        <div class='field red'></div>
-        <div class='field red'></div>
+        <div class='field red redhome'></div>
+        <div class='field red redHome'></div>
         <div class='empty'> </div>
         <div class='empty'></div>
         <div class='field' id='f1'></div>
         <div class='field' id='f2'></div>
-        <div class='field lightblue' id='f3 startBlue'>
+        <div class='field lightblue blueStart' id='f3'>
             <img class='arrow turn90' src="/res/right-arrow.svg">
         </div>
         <div class='empty'></div>
         <div class='empty'></div>
-        <div class='field blue'></div>
-        <div class='field blue'></div>
+        <div class='field blue homeBlue'></div>
+        <div class='field blue homeBlue'></div>
         <!-- Row 2-->
-        <div class='field red'></div>
-        <div class='field red'></div>
+        <div class='field red homeRed'></div>
+        <div class='field red homeRed'></div>
         <div class='empty'> </div>
         <div class='empty'></div>
         <div class='field' id='f4'></div>
-        <div class='field lightblue'></div>
-        <div class='field' id='f5'></div>
+        <div class='field lightblue' id=g></div>
+        <div class='field' id='f4'></div>
         <div class='empty'></div>
         <div class='empty'></div>
         <div class='field blue'></div>
@@ -41,7 +41,7 @@
         <!-- Row 3-->
         <div class='empty'></div>
         <h2 class='text'>Play</h2>
-        <button class='myBtn red-border' onclick="choseColor('red')">
+        <button class='myBtn red-border' onclick="chooseColor('red')">
             <img class=playIcon src='/res/play.png'>
         </button>
         <div class='empty'></div>
@@ -49,7 +49,7 @@
         <div class='field lightblue'></div>
         <div class='field' id='f7'></div>
         <div class='empty'></div>
-        <button class='myBtn blue-border' onclick="choseColor('blue')">
+        <button class='myBtn blue-border' onclick="chooseColor('blue')">
             <img class=playIcon src='/res/play.png'>
         </button>
         <h2 class='text'>Play</h2>
@@ -121,7 +121,7 @@
         <!-- Row 9-->
         <div class='empty'></div>
         <h2 class='text'>Play</h2>
-        <button class='myBtn yellow-border' onclick="choseColor('yellow')">
+        <button class='myBtn yellow-border' onclick="chooseColor('yellow')">
             <img class=playIcon src='/res/play.png'>
         </button>
         <div class='empty'></div>
@@ -129,7 +129,7 @@
         <div class='field lightyellow'></div>
         <div class='field'></div>
         <div class='empty'></div>
-        <button class='myBtn green-border' onclick="choseColor('green')">
+        <button class='myBtn green-border' onclick="chooseColor('green')">
             <img class=playIcon src='/res/play.png'>
         </button>
         <h2 class='text'>Play</h2>
