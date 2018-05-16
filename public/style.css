@@ -1,0 +1,44 @@
+#board{
+    width: 512px;
+    height: 512px;
+    display: grid;
+    grid-gap: 0.5%;
+    grid-template-columns: repeat(11, 9.090909090909091% );
+    grid-template-rows: repeat(11, 9.090909090909091%);
+}
+
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 90vh;
+    background-color: aliceblue;
+}
+
+.field {
+    border-style: solid;
+    border-color: black;
+    border-width: 1.5px;
+    border-radius: 100%;
+    background-color: gainsboro;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.arrow{ width: 80%;}
+
+.turn90{ transform: rotate(90deg);}
+.turn180{ transform: rotate(180deg);}
+.turn270{ transform: rotate(270deg);}
+
+.red { background-color: red;}
+.blue { background-color: blue;}
+.green { background-color: green;}
+.yellow { background-color: yellow;}
+
+.lightred { background-color: lightcoral;}
+.lightblue { background-color: lightblue;}
+.lightgreen { background-color: lightgreen;}
+.lightyellow { background-color: lightgoldenrodyellow;}

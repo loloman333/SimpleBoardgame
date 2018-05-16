@@ -1,0 +1,167 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>Mensch ärgere dich nicht</title>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="style.css" />
+</head>
+
+<body>
+    <div class='container' id='board'>
+        <!-- Row 1-->
+        <div class='field red'></div>
+        <div class='field red'></div>
+        <div class='empty'> </div>
+        <div class='empty'></div>
+        <div class='field' id='f1'></div>
+        <div class='field' id='f2'></div>
+        <div class='field lightblue' id='f3 startBlue'>
+            <img class='arrow turn90' src="/res/right-arrow.svg">
+        </div>
+        <div class='empty'></div>
+        <div class='empty'></div>
+        <div class='field blue'></div>
+        <div class='field blue'></div>
+        <!-- Row 2-->
+        <div class='field red'></div>
+        <div class='field red'></div>
+        <div class='empty'> </div>
+        <div class='empty'></div>
+        <div class='field' id='f4'></div>
+        <div class='field lightblue'></div>
+        <div class='field' id='f5'></div>
+        <div class='empty'></div>
+        <div class='empty'></div>
+        <div class='field blue'></div>
+        <div class='field blue'></div>
+        <!-- Row 3-->
+        <div class='empty'></div>
+        <div class='empty'></div>
+        <div class='empty'> </div>
+        <div class='empty'></div>
+        <div class='field' id='f6'></div>
+        <div class='field lightblue'></div>
+        <div class='field' id='f7'></div>
+        <div class='empty'></div>
+        <div class='empty'></div>
+        <div class='empty'></div>
+        <div class='empty'></div>
+        <!-- Row 4 -->
+        <div class='empty'></div>
+        <div class='empty'> </div>
+        <div class='empty'> </div>
+        <div class='empty'></div>
+        <div class='field' id='f8'></div>
+        <div class='field lightblue'></div>
+        <div class='field' id='f9'></div>
+        <div class='empty'></div>
+        <div class='empty'></div>
+        <div class='empty'></div>
+        <div class='empty'></div>
+        <!-- Row 5-->
+        <div class='field lightred' id='f10 startRed'>
+            <img class='arrow' src="/res/right-arrow.svg">
+        </div>
+        <div class='field' id='f11'></div>
+        <div class='field' id='f12'> </div>
+        <div class='field' id='f13'></div>
+        <div class='field' id='f14'></div>
+        <div class='field lightblue'></div>
+        <div class='field' id='f15'></div>
+        <div class='field' id='f16'></div>
+        <div class='field' id='f17'></div>
+        <div class='field' id='f18'></div>
+        <div class='field' id='f19'></div>
+        <!-- Row 6-->
+        <div class='field'></div>
+        <div class='field lightred'></div>
+        <div class='field lightred'> </div>
+        <div class='field lightred'></div>
+        <div class='field lightred'></div>
+        <div class='empty'></div>
+        <div class='field lightgreen'></div>
+        <div class='field lightgreen'></div>
+        <div class='field lightgreen'></div>
+        <div class='field lightgreen'></div>
+        <div class='field'></div>
+        <!-- Row 7-->
+        <div class='field'></div>
+        <div class='field'></div>
+        <div class='field'> </div>
+        <div class='field'></div>
+        <div class='field'></div>
+        <div class='field lightyellow'></div>
+        <div class='field'></div>
+        <div class='field'></div>
+        <div class='field'></div>
+        <div class='field'></div>
+        <div class='field lightgreen'>
+            <img class='arrow turn180' src="/res/right-arrow.svg">
+        </div>
+        <!-- Row 8-->
+        <div class='empty'></div>
+        <div class='empty'></div>
+        <div class='empty'> </div>
+        <div class='empty'></div>
+        <div class='field'></div>
+        <div class='field lightyellow'></div>
+        <div class='field'></div>
+        <div class='empty'></div>
+        <div class='empty'></div>
+        <div class='empty'></div>
+        <div class='empty'></div>
+        <!-- Row 9-->
+        <div class='empty'></div>
+        <div class='empty'></div>
+        <div class='empty'> </div>
+        <div class='empty'></div>
+        <div class='field'></div>
+        <div class='field lightyellow'></div>
+        <div class='field'></div>
+        <div class='empty'></div>
+        <div class='empty'></div>
+        <div class='empty'></div>
+        <div class='empty'></div>
+        <!-- Row 1-->
+        <div class='field yellow'></div>
+        <div class='field yellow'></div>
+        <div class='empty'> </div>
+        <div class='empty'></div>
+        <div class='field'></div>
+        <div class='field lightyellow'></div>
+        <div class='field'></div>
+        <div class='empty'></div>
+        <div class='empty'></div>
+        <div class='field green'></div>
+        <div class='field green'></div>
+        <!-- Row 11-->
+        <div class='field yellow'></div>
+        <div class='field yellow'></div>
+        <div class='empty'> </div>
+        <div class='empty'></div>
+        <div class='field lightyellow'>
+            <img class='arrow turn270' src="/res/right-arrow.svg">
+        </div>
+        <div class='field'></div>
+        <div class='field'></div>
+        <div class='empty'></div>
+        <div class='empty'></div>
+        <div class='field green'></div>
+        <div class='field green'></div>
+    </div>
+
+    <script>
+        var socket;
+
+        $(function () {
+            socket = io();
+
+        });
+
+    </script>
+</body>
+
+</html>
