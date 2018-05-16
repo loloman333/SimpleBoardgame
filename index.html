@@ -10,6 +10,7 @@
 </head>
 
 <body>
+    <div>
     <div class='container' id='board'>
         <!-- Row 1-->
         <div class='field red'></div>
@@ -153,15 +154,10 @@
         <div class='field green'></div>
     </div>
 
-    <script>
-        var socket;
+    <div><p id=onlineUsers></p> Users online</div>
+    </div>
 
-        $(function () {
-            socket = io();
-
-        });
-
-    </script>
+    <script src='client.js'></script>
 </body>
 
 </html>
