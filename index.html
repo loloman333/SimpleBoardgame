@@ -41,7 +41,7 @@
         <!-- Row 3-->
         <div class='empty'></div>
         <h2 class='text'>Play</h2>
-        <button class='myBtn red-border' onclick="chooseColor('red')">
+        <button class='myBtn red-border' id='redButton' onclick="chooseColor('red')">
             <img class=playIcon src='/res/play.png'>
         </button>
         <div class='empty'></div>
@@ -49,22 +49,26 @@
         <div class='field lightblue'></div>
         <div class='field' id='f7'></div>
         <div class='empty'></div>
-        <button class='myBtn blue-border' onclick="chooseColor('blue')">
+        <button class='myBtn blue-border' id='blueButton' onclick="chooseColor('blue')">
             <img class=playIcon src='/res/play.png'>
         </button>
         <h2 class='text'>Play</h2>
         <div class='empty'></div>
         <!-- Row 4 -->
         <div class='empty'></div>
-        <div class='empty'> </div>
+        <h3 class='longText' id='redText'></h3>
+        <!--
         <div class='empty'> </div>
         <div class='empty'></div>
+        -->
         <div class='field' id='f8'></div>
         <div class='field lightblue'></div>
         <div class='field' id='f9'></div>
+        <h3 class='longText' id='blueText'></h3>
+        <!--
+        <div class='empty'> </div>
         <div class='empty'></div>
-        <div class='empty'></div>
-        <div class='empty'></div>
+        -->
         <div class='empty'></div>
         <!-- Row 5-->
         <div class='field lightred' id='f10 startRed'>
@@ -108,20 +112,24 @@
         </div>
         <!-- Row 8-->
         <div class='empty'></div>
-        <div class='empty'></div>
+        <h3 class='longText' id='yellowText'></h3>
+        <!--
         <div class='empty'> </div>
         <div class='empty'></div>
+        -->
         <div class='field'></div>
         <div class='field lightyellow'></div>
         <div class='field'></div>
+        <h3 class='longText' id='greenText'></h3>
+        <!--
+        <div class='empty'> </div>
         <div class='empty'></div>
-        <div class='empty'></div>
-        <div class='empty'></div>
+        -->
         <div class='empty'></div>
         <!-- Row 9-->
         <div class='empty'></div>
         <h2 class='text'>Play</h2>
-        <button class='myBtn yellow-border' onclick="chooseColor('yellow')">
+        <button class='myBtn yellow-border' id='yellowButton' onclick="chooseColor('yellow')">
             <img class=playIcon src='/res/play.png'>
         </button>
         <div class='empty'></div>
@@ -129,7 +137,7 @@
         <div class='field lightyellow'></div>
         <div class='field'></div>
         <div class='empty'></div>
-        <button class='myBtn green-border' onclick="chooseColor('green')">
+        <button class='myBtn green-border' id='greenButton' onclick="chooseColor('green')">
             <img class=playIcon src='/res/play.png'>
         </button>
         <h2 class='text'>Play</h2>
@@ -162,7 +170,22 @@
         <div class='field green'></div>
     </div>
 
-    <div><p id=onlineUsers></p> Users online</div>
+    <div id=controls>
+        <span>
+            <span id=onlineUsers></span> 
+            Users online | 
+            <span id=playingUsers></span>
+            playing |
+            <span id=spectatingUsers></span>
+            spectating
+        </span>
+        <br>
+        <button onclick='rollIt()' >Roll the Dice!</button>
+        <br>
+        <span>
+            Wow! You rolled a
+            <span id=rolledEyes></span>
+        </span>
     </div>
 
     <script src='client.js'></script>

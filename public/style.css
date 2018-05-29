@@ -7,6 +7,14 @@
     grid-template-rows: repeat(11, 9.090909090909091%);
 }
 
+#controls{
+    margin-top: 10%;
+    width: 532px;
+    border-style: ridge;
+    border-color: black;
+    border-width: 1.5 px;
+}
+
 body {
     display: flex;
     align-items: center;
@@ -20,6 +28,9 @@ body {
     width: 100%;
     height: 100%;
     border-radius: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .field {
@@ -34,18 +45,22 @@ body {
     justify-content: center;
 }
 
-button{ 
-    border-color: coral;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+button:disabled{
+    background-color: darkgray;
+    border-color: gray;
 }
+
+
 
 .text{
     display: flex;
     align-items: center;
-    justify-content: center;
-}
+    justify-content: center }
+.longText{
+    grid-column: span 3;
+    display: flex;
+    align-items: center;
+    justify-content: center;}
 
 .arrow{ width: 80%;}
 .playIcon{ width: 110%; padding-top:5%}

@@ -12,7 +12,7 @@ var gameInfo = {
     blue: null,
     yellow: null,
     green: null,
-    redStones:[  ],
+    redStones:[ ],
     blueStones:[ ],
     yellowStones:[  ],   
     greenStones:[  ]  
@@ -24,58 +24,61 @@ app.get('/', function (req, res) {
     res.sendFile(__dirname + '/index.html');
 });
 
+// Wenn ein User connected... 
 io.on('connection', function (socket) {
 
-    let color;
+    let color;  //farbe des spielers
 
     console.log('a user connected');
     gameInfo.onlineUsers += 1;
-    io.emit('gameStatus', gameInfo);
+    io.emit('gameStatus', gameInfo);    //erstmalig gameInfo schicken
 
+    // Wenn der User disconnected...
     socket.on('disconnect', function () {
         console.log('user disconnected');
         gameInfo.onlineUsers -= 1;
 
+        //wenn der user eine farbe hatte -> farbe freigeben
         if (color){        
             switch(color){
                 case 'red': 
                     console.log('Bye, ' + gameInfo.red + '! (Player ' + color + ')');
-                    gameInfo.red = ''; 
+                    gameInfo.red = null; 
                     break;
                 case 'blue': 
                     console.log('Bye, ' + gameInfo.blue + '! (Player ' + color + ')');
-                    gameInfo.blue = ''; 
+                    gameInfo.blue = null; 
                     break;
                 case 'yellow': 
                     console.log('Bye, ' + gameInfo.yellow + '! (Player ' + color + ')');
-                    gameInfo.yellow = ''; 
+                    gameInfo.yellow = null 
                     break;
                 case 'green': 
                     console.log('Bye, ' + gameInfo.green + '! (Player ' + color + ')');
-                    gameInfo.green = ''; 
+                    gameInfo.green = null; 
                     break;
             }
         }
 
-        io.emit('gameStatus', gameInfo);
+        io.emit('gameStatus', gameInfo);    // andere user benachrichtigen
     });
 
+    // Wenn der user eine farbe ausgesucht hat
     socket.on('chooseColor', function (msg) {
 
         console.log(msg.name + " is now Player " + msg.color);
         color = msg.color;
         
+        // setzte den user in die gameInfo ein
         switch(msg.color){
-            case "'red'": 
-                console.log("yea")
-                gameInfo.red = msg.name; break;
+            case 'red': gameInfo.red = msg.name; break;
             case 'blue': gameInfo.blue = msg.name; break;
             case 'yellow': gameInfo.yellow = msg.name; break;
             case 'green': gameInfo.green = msg.name; break;
         }
 
         console.log(gameInfo);
-        io.emit('gameStatus', gameInfo);
+        io.emit('gameStatus', gameInfo);    //gameInfo an alle
 
     });
 
