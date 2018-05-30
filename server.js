@@ -12,13 +12,28 @@ var gameInfo = {
     blue: null,
     yellow: null,
     green: null,
-    redStones:[ ],
-    blueStones:[ ],
-    yellowStones:[  ],   
-    greenStones:[  ]  
+    redStones:["hr1", "hr2", "hr3", "hr4"],
+    blueStones:["hb1","hb2", "hb3", "hb4" ],
+    yellowStones:["hy1", "hy2", "hy3", "hy4"],   
+    greenStones:["hg1", "hg2", "hg3", "hg4"]  
 };
 
-app.use(express.static(__dirname + '/public'))
+var redStart = "f10";
+var blueStart = "f3";
+var greenStart = "f31";
+var yellowStart = "38";
+
+var redEnd = "f20";
+var blueEnd = "f2";
+var greenEnd = "f21";
+var yellowEnd = "f39";
+
+var order = ["f1" , "f2" , "f3" , "f5" , "f7" , "f9" , "f15", "f16", "f17", "f18", "f19", "f21",
+             "f31", "f30", "f29", "f28", "f27", "f33", "f35", "f37", "f40", "f39", "f38", "f36",
+             "f34", "f32", "f26", "f25", "f24", "f23", "f22", "f20", "f10", "f11", "f12", "f13", "f14",
+             "f8", "f6", "f4"];
+             
+app.use(express.static(__dirname + '/public'));
 
 app.get('/', function (req, res) {
     res.sendFile(__dirname + '/index.html');
@@ -81,6 +96,14 @@ io.on('connection', function (socket) {
         io.emit('gameStatus', gameInfo);    //gameInfo an alle
 
     });
+
+    socket.on('rollTheDice', function(){
+        let eyes = Math.floor((Math.random() * 6) + 1);
+
+        socket.emit('rolledEyes', eyes);
+
+    });
+
 
 });
 

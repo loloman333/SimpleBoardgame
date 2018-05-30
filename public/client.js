@@ -6,21 +6,38 @@ let gameInfo = {
     blue: null,
     yellow: null,
     green: null,
-    redStones:[ ],
-    blueStones:[ ],
-    yellowStones:[  ],   
-    greenStones:[  ]  
+    redStones:[],
+    blueStones:[],
+    yellowStones:[],   
+    greenStones:[]  
 };
 
 let name;
 let color;
+let rolledEyes;
 
 $(function () {
+
     socket = io();
+
 
     socket.on('gameStatus', function (msg) {
 
-        console.log(gameInfo);
+        //console.log(gameInfo);
+
+        if ( JSON.stringify(msg.redStones) != JSON.stringify(gameInfo.redStones)){
+            removeStones(gameInfo.redStones, "red"); 
+            addStones(msg.redStones,"red");
+        } if (msg.blueStones != gameInfo.blueStones){
+            removeStones(gameInfo.blueStones, "blue"); 
+            addStones(msg.blueStones, "blue");
+        } if (msg.greenStones != gameInfo.greenStones){
+            removeStones(gameInfo.greenStones, "green"); 
+            addStones(msg.greenStones, "green");
+        } if (msg.yellowStones != gameInfo.yellowStones){
+            removeStones(gameInfo.yellowStones, "yellow"); 
+            addStones(msg.yellowStones, "yellow");
+        } 
 
         gameInfo = msg;
 
@@ -35,7 +52,6 @@ $(function () {
         $('#spectatingUsers').html(gameInfo.onlineUsers - playingPlayers);
 
         // Disable unavailable Buttons
-        console.log(color);
         if (color){
             $(".myBtn").prop("disabled", true);
         } else {
@@ -51,42 +67,30 @@ $(function () {
         $("#yellowText").html(gameInfo.yellow);
         $("#greenText").html(gameInfo.green);
 
-        /*
-        if (!name){ // If there's no name yet enter one
-            enterNamePopup();
-        } else if (!color) {  // Check for color
-            if (gameInfo.red == name){
-                color = 'red'; 
-                confirm("You're playing as red now!");
-            } else if (gameInfo.blue == name){ 
-                color = 'blue';
-                confirm("You're playing as blue now!"); 
-            } else if (gameInfo.green == name){ 
-                color = 'green';
-                confirm("You're playing as green now!");  
-            } else if (gameInfo.yellow == name){ 
-                color = 'yellow';
-                confirm("You're playing as yellow now!"); 
-            }
-        }*/
     });
 
     // Error Message from Server
     socket.on("myError", function(msg){
         alert(msg);
     });
+
+    socket.on("rolledEyes", function(msg){
+        $("#rolledEyes").html(msg);
+        $("#rollResult").css("visibility", "visible")
+
+        rolledEyes = msg;
+    });
 });
 
 // Opens a popup to enter the name
 function enterNamePopup(){
-    while (name == null || name == ''){
+    while (name == null || name == '') {
         name = prompt("Please enter your name", "Player 1").replace("\\s+","");;
     }
-    
     confirm("Great! Greetings " + name );         
 } 
 
-// sends event to server to evaluate color pick
+// sends event to server to pick color
 function chooseColor(colorPls){
     if (!name){
         enterNamePopup();
@@ -96,9 +100,23 @@ function chooseColor(colorPls){
     socket.emit('chooseColor', {name: name, color: colorPls});  
 }
 
-// rolls a Dice (1 - 6)
+// sends request to server to roll a dice
 function rollIt(){
-    let eyes = Math.floor((Math.random() * 6) + 1);
-    $("#rolledEyes").html(eyes);
+    socket.emit("rollTheDice");
+}
 
+// Remove all Stones in a given array
+function removeStones(array, colorP){
+
+    for (let i = 0; i < array.length; i++){
+        $("#" + array[i]).removeClass(color);
+    }
+}
+
+// Adds all Stones in a given array
+function addStones(array, colorP){
+
+    for (let i = 0; i < array.length; i++){
+        $("#" + array[i]).addClass(colorP);
+    }
 }

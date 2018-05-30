@@ -13,31 +13,31 @@
     <div>
     <div class='container' id='board'>
         <!-- Row 1-->
-        <div class='field red redhome'></div>
-        <div class='field red redHome'></div>
+        <div class='field lightred' id=hr1></div>
+        <div class='field lightred' id=hr2></div>
         <div class='empty'> </div>
         <div class='empty'></div>
         <div class='field' id='f1'></div>
         <div class='field' id='f2'></div>
-        <div class='field lightblue blueStart' id='f3'>
+        <div class='field lightblue' id='f3'>
             <img class='arrow turn90' src="/res/right-arrow.svg">
         </div>
         <div class='empty'></div>
         <div class='empty'></div>
-        <div class='field blue homeBlue'></div>
-        <div class='field blue homeBlue'></div>
+        <div class='field lightblue' id=hb1></div>
+        <div class='field lightblue' id=hb2></div>
         <!-- Row 2-->
-        <div class='field red homeRed'></div>
-        <div class='field red homeRed'></div>
+        <div class='field lightred' id=hr3></div>
+        <div class='field lightred' id=hr4></div>
         <div class='empty'> </div>
         <div class='empty'></div>
         <div class='field' id='f4'></div>
-        <div class='field lightblue' id=g></div>
-        <div class='field' id='f4'></div>
+        <div class='field lightblue' id=gb1></div>
+        <div class='field' id='f5'></div>
         <div class='empty'></div>
         <div class='empty'></div>
-        <div class='field blue'></div>
-        <div class='field blue'></div>
+        <div class='field lightblue' id=hb3></div>
+        <div class='field lightblue' id=hb4></div>
         <!-- Row 3-->
         <div class='empty'></div>
         <h2 class='text'>Play</h2>
@@ -46,7 +46,7 @@
         </button>
         <div class='empty'></div>
         <div class='field' id='f6'></div>
-        <div class='field lightblue'></div>
+        <div class='field lightblue' id=gb2></div>
         <div class='field' id='f7'></div>
         <div class='empty'></div>
         <button class='myBtn blue-border' id='blueButton' onclick="chooseColor('blue')">
@@ -62,7 +62,7 @@
         <div class='empty'></div>
         -->
         <div class='field' id='f8'></div>
-        <div class='field lightblue'></div>
+        <div class='field lightblue' id=gb3></div>
         <div class='field' id='f9'></div>
         <h3 class='longText' id='blueText'></h3>
         <!--
@@ -71,43 +71,43 @@
         -->
         <div class='empty'></div>
         <!-- Row 5-->
-        <div class='field lightred' id='f10 startRed'>
+        <div class='field lightred' id='f10'>
             <img class='arrow' src="/res/right-arrow.svg">
         </div>
         <div class='field' id='f11'></div>
         <div class='field' id='f12'> </div>
         <div class='field' id='f13'></div>
         <div class='field' id='f14'></div>
-        <div class='field lightblue'></div>
+        <div class='field lightblue' id=gb4></div>
         <div class='field' id='f15'></div>
         <div class='field' id='f16'></div>
         <div class='field' id='f17'></div>
         <div class='field' id='f18'></div>
         <div class='field' id='f19'></div>
         <!-- Row 6-->
-        <div class='field'></div>
-        <div class='field lightred'></div>
-        <div class='field lightred'> </div>
-        <div class='field lightred'></div>
-        <div class='field lightred'></div>
+        <div class='field' id='f20'></div>
+        <div class='field lightred' id=gr1></div>
+        <div class='field lightred' id=gr2> </div>
+        <div class='field lightred' id=gr3></div>
+        <div class='field lightred' id=gr4></div>
         <div class='empty'></div>
-        <div class='field lightgreen'></div>
-        <div class='field lightgreen'></div>
-        <div class='field lightgreen'></div>
-        <div class='field lightgreen'></div>
-        <div class='field'></div>
+        <div class='field lightgreen'id=gg4></div>
+        <div class='field lightgreen'id=gg3></div>
+        <div class='field lightgreen'id=gg2></div>
+        <div class='field lightgreen'id=gg1></div>
+        <div class='field' id='f21'></div>
         <!-- Row 7-->
-        <div class='field'></div>
-        <div class='field'></div>
-        <div class='field'> </div>
-        <div class='field'></div>
-        <div class='field'></div>
-        <div class='field lightyellow'></div>
-        <div class='field'></div>
-        <div class='field'></div>
-        <div class='field'></div>
-        <div class='field'></div>
-        <div class='field lightgreen'>
+        <div class='field' id='f22' ></div>
+        <div class='field' id='f23' ></div>
+        <div class='field' id='f24' > </div>
+        <div class='field' id='f25' ></div>
+        <div class='field' id='f26' ></div>
+        <div class='field lightyellow' id=gy4></div>
+        <div class='field' id=f27></div>
+        <div class='field' id=f28></div>
+        <div class='field' id=f29></div>
+        <div class='field' id=f30></div>
+        <div class='field lightgreen' id=f31>
             <img class='arrow turn180' src="/res/right-arrow.svg">
         </div>
         <!-- Row 8-->
@@ -117,9 +117,9 @@
         <div class='empty'> </div>
         <div class='empty'></div>
         -->
-        <div class='field'></div>
-        <div class='field lightyellow'></div>
-        <div class='field'></div>
+        <div class='field' id=f32></div>
+        <div class='field lightyellow' id=gy3></div>
+        <div class='field' id=f33></div>
         <h3 class='longText' id='greenText'></h3>
         <!--
         <div class='empty'> </div>
@@ -133,9 +133,9 @@
             <img class=playIcon src='/res/play.png'>
         </button>
         <div class='empty'></div>
-        <div class='field'></div>
-        <div class='field lightyellow'></div>
-        <div class='field'></div>
+        <div class='field' id=f34></div>
+        <div class='field lightyellow' id=gy2></div>
+        <div class='field' id=f35></div>
         <div class='empty'></div>
         <button class='myBtn green-border' id='greenButton' onclick="chooseColor('green')">
             <img class=playIcon src='/res/play.png'>
@@ -143,31 +143,31 @@
         <h2 class='text'>Play</h2>
         <div class='empty'></div>
         <!-- Row 10-->
-        <div class='field yellow'></div>
-        <div class='field yellow'></div>
+        <div class='field lightyellow' id=hy1></div>
+        <div class='field lightyellow' id=hy2></div>
         <div class='empty'> </div>
         <div class='empty'></div>
-        <div class='field'></div>
-        <div class='field lightyellow'></div>
-        <div class='field'></div>
+        <div class='field' id=f36></div>
+        <div class='field lightyellow' id=gy1></div>
+        <div class='field' id=f37></div>
         <div class='empty'></div>
         <div class='empty'></div>
-        <div class='field green'></div>
-        <div class='field green'></div>
+        <div class='field lightgreen' id=hg1></div>
+        <div class='field lightgreen' id=hg2></div>
         <!-- Row 11-->
-        <div class='field yellow'></div>
-        <div class='field yellow'></div>
-        <div class='empty'> </div>
+        <div class='field lightyellow' id=hy3></div>
+        <div class='field lightyellow' id=hy4></div>
+        <div class='empty'></div>  
         <div class='empty'></div>
-        <div class='field lightyellow'>
+        <div class='field lightyellow' id=f38>
             <img class='arrow turn270' src="/res/right-arrow.svg">
         </div>
-        <div class='field'></div>
-        <div class='field'></div>
+        <div class='field' id=f39></div>
+        <div class='field' id=f40></div>
         <div class='empty'></div>
         <div class='empty'></div>
-        <div class='field green'></div>
-        <div class='field green'></div>
+        <div class='field lightgreen' id=hg3></div>
+        <div class='field lightgreen' id=hg4></div>
     </div>
 
     <div id=controls>
@@ -182,7 +182,7 @@
         <br>
         <button onclick='rollIt()' >Roll the Dice!</button>
         <br>
-        <span>
+        <span id=rollResult>
             Wow! You rolled a
             <span id=rolledEyes></span>
         </span>

@@ -15,6 +15,10 @@
     border-width: 1.5 px;
 }
 
+#rollResult {
+    visibility: hidden;
+}
+
 body {
     display: flex;
     align-items: center;
@@ -50,7 +54,7 @@ button:disabled{
     border-color: gray;
 }
 
-
+/* .redPlayer{ background-color: red; }*/
 
 .text{
     display: flex;
@@ -69,14 +73,14 @@ button:disabled{
 .turn180{ transform: rotate(180deg);}
 .turn270{ transform: rotate(270deg);}
 
-.red { background-color: red;}
-.blue { background-color: blue;}
-.green { background-color: green;}
-.yellow { background-color: yellow;}
 .lightred { background-color: lightcoral;}
 .lightblue { background-color: lightblue;}
 .lightgreen { background-color: lightgreen;}
 .lightyellow { background-color: lightgoldenrodyellow;}
+.red { background-color: red;}
+.blue { background-color: blue;}
+.green { background-color: green;}
+.yellow { background-color: yellow;}
 
 .red-border{ border-color: red; }
 .blue-border{ border-color: blue; }
