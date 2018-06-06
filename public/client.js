@@ -49,6 +49,13 @@ $(function () {
         $('#playingUsers').html(playingPlayers);
         $('#spectatingUsers').html(gameInfo.onlineUsers - playingPlayers);
 
+        // show player turn
+        $('#playerTurn').removeClass('lightred lightblue lightgreen lightyellow');
+        if (gameInfo.turn == 'red') $('#playerTurn').addClass('lightred').html(gameInfo.red);
+        if (gameInfo.turn == 'blue') $('#playerTurn').addClass('lightblue').html(gameInfo.blue);
+        if (gameInfo.turn == 'green') $('#playerTurn').addClass('lightgreen').html(gameInfo.green);
+        if (gameInfo.turn == 'yellow') $('#playerTurn').addClass('lightyellow').html(gameInfo.yellow);
+
         // Disable unavailable Buttons
         if (color){
             $(".myBtn").prop("disabled", true);
@@ -58,7 +65,7 @@ $(function () {
             $("#yellowButton").prop("disabled", gameInfo.yellow != null);
             $("#greenButton").prop("disabled", gameInfo.green != null);
         }
-        $('#dice').prop("disabled", !color || gameInfo.turn != color || rolledEyes != null);
+        //$('#dice').prop("disabled", !color || gameInfo.turn != color || rolledEyes != null);
 
         // Show Player names
         $("#redText").html(gameInfo.red);
@@ -73,12 +80,14 @@ $(function () {
         alert(msg);
     });
 
+    // Server hat für User gewürfelt
     socket.on("rolledEyes", function(msg){
         $("#rolledEyes").html(msg);
         $("#rollResult").css("visibility", "visible")
 
         rolledEyes = msg;
     });
+
 });
 
 // Opens a popup to enter the name
@@ -102,7 +111,7 @@ function chooseColor(colorPls){
 // sends request to server to roll a dice
 function rollIt(){
     socket.emit("rollTheDice");
-    $('#dice').prop("disabled", true);
+    //$('#dice').prop("disabled", true);
 }
 
 // Remove all Stones in a given array

@@ -7,6 +7,7 @@
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 
     <link rel="stylesheet" type="text/css" href="style.css" />
+    <link href="https://fonts.googleapis.com/css?family=Josefin+Sans" rel="stylesheet">
 </head>
 
 <body>
@@ -145,7 +146,7 @@
         <!-- Row 10-->
         <div class='field lightyellow' id=hy1></div>
         <div class='field lightyellow' id=hy2></div>
-        <div class='empty'> </div>
+        <div class='empty'></div>
         <div class='empty'></div>
         <div class='field' id=f36></div>
         <div class='field lightyellow' id=gy1></div>
@@ -170,23 +171,22 @@
         <div class='field lightgreen' id=hg4></div>
     </div>
 
-    <div id=controls>
-        <span>
-            <span id=onlineUsers></span> 
-            Users online | 
-            <span id=playingUsers></span>
-            playing |
-            <span id=spectatingUsers></span>
-            spectating
-        </span>
-        <br>
-        <button id='dice' onclick='rollIt()' >Roll the Dice!</button>
-        <br>
-        <span id=rollResult>
-            Wow! You rolled a
-            <span id=rolledEyes></span>
-        </span>
-    </div>
+    <table id=controls>
+        <tr>
+            <td width=33%><span id=onlineUsers></span> Users online</td>
+            <td width=33%><span id=playingUsers></span> Playing</td>
+            <td width=33%><span id=spectatingUsers></span> Spectating</td>
+        </tr>
+        <tr>
+            <td><button id='dice' onclick='rollIt()'> Roll the Dice!</button></td>
+            <td><span id=rollResult> Wow! You rolled a <span id=rolledEyes></span></span></td>
+        </tr>
+        <tr>
+            <td>Turn:</td>
+            <td id=playerTurn></td>
+            <td></td>
+        </tr>
+    </table>
 
     <script src='client.js'></script>
 </body>

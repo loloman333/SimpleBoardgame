@@ -5,18 +5,26 @@
     grid-gap: 0.5%;
     grid-template-columns: repeat(11, 9.090909090909091% );
     grid-template-rows: repeat(11, 9.090909090909091%);
-}
+    }
 
 #controls{
     margin-top: 10%;
     width: 532px;
-    border-style: ridge;
-    border-color: black;
-    border-width: 1.5 px;
+    background: #f5f5f5;
+    border: 1px solid #FFF;
+    border-radius: 5px;
+    box-shadow: 1px 2px 4px rgba(0,0,0,.4);
+
+    padding: 1.5%;
 }
 
 #rollResult {
     visibility: hidden;
+}
+
+#playerTurn {
+    width: 10%;
+    height: 10%;
 }
 
 body {
@@ -26,6 +34,7 @@ body {
     
     min-height: 90vh;
     background-color: aliceblue;
+    font-family: 'Josefin Sans', sans-serif;
 }
 
 .myBtn {

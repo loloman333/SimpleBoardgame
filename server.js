@@ -4,29 +4,33 @@ var app = express();
 var http = require('http').createServer(app);
 var io = require('socket.io')(http);
 
-var gameInfo = {
+var gameInfoTemp = {
     running: false,
     onlineUsers: 0,
-    turn: 'green',
+    turn: null,
     red: null,
     blue: null,
     yellow: null,
     green: null,
-    redStones:["f26", "f24", "f23", "f22"],
+    redStones:["f20", "f22", "f23", "f24"],
     blueStones:["hb1","hb2", "hb3", "hb4" ],
     yellowStones:["hy1", "hy2", "hy3", "hy4"],   
-    greenStones:["f32", "f34", "f36", "hg4"]  
+    greenStones:["hg1", "hg2", "hg3", "hg4"]  
 };
 
-var redStart = "f10";
-var blueStart = "f3";
-var greenStart = "f31";
-var yellowStart = "f38";
-
-var redEnd = "f20";
-var blueEnd = "f2";
-var greenEnd = "f21";
-var yellowEnd = "f39";
+var gameInfo = {
+    running: false,
+    onlineUsers: 0,
+    turn: null,
+    red: null,
+    blue: null,
+    yellow: null,
+    green: null,
+    redStones:["f20", "f22", "f23", "f24"],
+    blueStones:["hb1","hb2", "hb3", "hb4" ],
+    yellowStones:["hy1", "hy2", "hy3", "hy4"],   
+    greenStones:["hg1", "hg2", "hg3", "hg4"]  
+};
 
 var redOrder = ["f10", "f11", "f12", "f13", "f14", "f8" , "f6" , "f4" , "f1" , "f2" , 
                 "f3" , "f5" , "f7" , "f9" , "f15", "f16", "f17", "f18", "f19", "f21", 
@@ -112,7 +116,12 @@ io.on('connection', function (socket) {
             case 'green': gameInfo.green = msg.name; break;
         }
 
-        console.log(gameInfo);
+        // Wenn 4 Spieler online --> Spiel starten
+        if (gameInfo.red != null && gameInfo.blue != null && gameInfo.green != null && gameInfo.yellow != null){
+            gameInfo.running = true;
+            gameInfo.turn = randomTurn();
+        }
+        
         io.emit('gameStatus', gameInfo);    //gameInfo an alle
 
     });
@@ -148,14 +157,15 @@ io.on('connection', function (socket) {
         if (msg.colorP == "green") order = greenOrder;
         if (msg.colorP == "yellow") order = yellowOrder;
 
-        // Geklickter Spieler steht in Homebase
+        // Geklickter stein steht in Homebase
         if (msg.id.includes('h') ){
             if (msg.rolledEyes != 6){
                 socket.emit('myError', 'Nur mit Sex kannst du aus dem Haus gehen!');
+                return;
             } else {
-                // Aus dem Haus gehen
+                newPos = order[0];
             }
-        //Geklickter Spieler steht nicht im Haus
+        //Geklickter Stein steht nicht im Haus
         } else {             
             if (order.indexOf(oldPos) + msg.rolledEyes > order.length - 1){
 
@@ -164,7 +174,6 @@ io.on('connection', function (socket) {
             } else {
                 newPos = order[order.indexOf(oldPos) + msg.rolledEyes];
             }
-            
         }
 
         //Check if there's a player on new pos
@@ -198,16 +207,23 @@ io.on('connection', function (socket) {
             }
         }   
         
+        // move the stone
         if (msg.colorP == "red") gameInfo.redStones[gameInfo.redStones.indexOf(oldPos)] = newPos;
         if (msg.colorP == "blue") gameInfo.blueStones[gameInfo.blueStones.indexOf(oldPos)] = newPos;
         if (msg.colorP == "green") gameInfo.greenStones[gameInfo.greenStones.indexOf(oldPos)] = newPos;
         if (msg.colorP == "yellow") gameInfo.yellowStones[gameInfo.yellowStones.indexOf(oldPos)] = newPos;
 
+        if (checkWin(color)){
+            socket.emit('myError', color + ' has won the game!');
+            gameInfo = gameInfoTemp;
+        }
+
+        gameInfo.turn = nextTurn(gameInfo.turn);
+        console.log(gameInfo.turn);
+
         io.emit('gameStatus', gameInfo);
 
     });
-
-
 });
 
 http.listen(3000, function () {
@@ -240,3 +256,40 @@ function sendHome(color){
         if (! gameInfo.redStones.includes('hy4')) return 'hy4';
     }
 }
+
+function randomTurn(){
+    let i = Math.floor((Math.random() * 4) + 1); 
+
+    switch(i){
+        case 1: return 'red';
+        case 2: return 'blue';
+        case 3: return 'green';
+        case 4: return 'yellow';
+        default: return 'shit';
+    }
+}
+
+function checkWin(color){
+
+    let colorLetter = color == 'red' ? 'r' : 
+                      color == 'blue' ? 'b' : 
+                      color == 'green' ? 'g' :
+                      'y';
+
+    if (gameInfo.redStones[0].includes("g" + colorLetter) &&
+        gameInfo.redStones[1].includes("g" + colorLetter) &&
+        gameInfo.redStones[2].includes("g" + colorLetter) &&
+        gameInfo.redStones[3].includes("g" + colorLetter)){
+        return true;
+    }
+
+    return false;
+}
+
+function nextTurn(curTurn){
+    return curTurn == 'yellow' ? 'red' : 
+           curTurn == 'red' ? 'blue' : 
+           curTurn == 'blue' ? 'green' : 
+           'yellow'; 
+}
+    
