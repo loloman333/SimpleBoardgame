@@ -2,6 +2,7 @@ let socket;
 let gameInfo = {
     running: false,
     onlineUsers: 0,
+    turn: null,
     red: null,
     blue: null,
     yellow: null,
@@ -14,27 +15,24 @@ let gameInfo = {
 
 let name;
 let color;
-let rolledEyes;
-
+let rolledEyes = null;
 $(function () {
 
     socket = io();
 
-
     socket.on('gameStatus', function (msg) {
 
-        //console.log(gameInfo);
-
+        // update stones
         if ( JSON.stringify(msg.redStones) != JSON.stringify(gameInfo.redStones)){
             removeStones(gameInfo.redStones, "red"); 
             addStones(msg.redStones,"red");
-        } if (msg.blueStones != gameInfo.blueStones){
+        } if (JSON.stringify(msg.blueStones) != JSON.stringify(gameInfo.blueStones)){
             removeStones(gameInfo.blueStones, "blue"); 
             addStones(msg.blueStones, "blue");
-        } if (msg.greenStones != gameInfo.greenStones){
+        } if ( JSON.stringify(msg.greenStones) != JSON.stringify(gameInfo.greenStones)){
             removeStones(gameInfo.greenStones, "green"); 
             addStones(msg.greenStones, "green");
-        } if (msg.yellowStones != gameInfo.yellowStones){
+        } if (JSON.stringify(msg.yellowStones) != JSON.stringify(gameInfo.yellowStones)){
             removeStones(gameInfo.yellowStones, "yellow"); 
             addStones(msg.yellowStones, "yellow");
         } 
@@ -60,6 +58,7 @@ $(function () {
             $("#yellowButton").prop("disabled", gameInfo.yellow != null);
             $("#greenButton").prop("disabled", gameInfo.green != null);
         }
+        $('#dice').prop("disabled", !color || gameInfo.turn != color || rolledEyes != null);
 
         // Show Player names
         $("#redText").html(gameInfo.red);
@@ -103,13 +102,15 @@ function chooseColor(colorPls){
 // sends request to server to roll a dice
 function rollIt(){
     socket.emit("rollTheDice");
+    $('#dice').prop("disabled", true);
 }
 
 // Remove all Stones in a given array
 function removeStones(array, colorP){
 
     for (let i = 0; i < array.length; i++){
-        $("#" + array[i]).removeClass(color);
+        $("#" + array[i]).removeClass(colorP);
+        $("#" + array[i]).off("click");
     }
 }
 
@@ -117,6 +118,25 @@ function removeStones(array, colorP){
 function addStones(array, colorP){
 
     for (let i = 0; i < array.length; i++){
-        $("#" + array[i]).addClass(colorP);
+
+       
+        let id = "#" + array[i];
+
+        $(id).addClass(colorP);
+        $(id).click(function(event){
+
+            let colorF;
+            if (event.currentTarget.classList.contains('red')) colorF = 'red';
+            if (event.currentTarget.classList.contains('blue')) colorF = 'blue';
+            if (event.currentTarget.classList.contains('green')) colorF = 'green';
+            if (event.currentTarget.classList.contains('yellow')) colorF = 'yellow';
+
+            let msg = { rolledEyes: rolledEyes,
+                        id: event.currentTarget.id,
+                        colorP: color,
+                        colorF: colorF};
+
+            socket.emit("moveRequest", msg);
+        });
     }
 }
