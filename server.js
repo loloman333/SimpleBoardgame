@@ -26,7 +26,7 @@ var gameInfo = {
     blue: null,
     yellow: null,
     green: null,
-    redStones:["f20", "f22", "f23", "f24"],
+    redStones:["hr1", "hr2", "hr3", "hr4"],
     blueStones:["hb1","hb2", "hb3", "hb4" ],
     yellowStones:["hy1", "hy2", "hy3", "hy4"],   
     greenStones:["hg1", "hg2", "hg3", "hg4"]  
@@ -219,10 +219,15 @@ io.on('connection', function (socket) {
         }
 
         gameInfo.turn = nextTurn(gameInfo.turn);
-        console.log(gameInfo.turn);
 
         io.emit('gameStatus', gameInfo);
 
+    });
+
+    // Wenn User Zug überspringen will
+    socket.on("skipTurn", function(){
+        gameInfo.turn = nextTurn(gameInfo.turn);
+        io.emit("gameStatus", gameInfo);
     });
 });
 

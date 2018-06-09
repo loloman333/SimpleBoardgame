@@ -16,6 +16,9 @@ let gameInfo = {
 let name;
 let color;
 let rolledEyes = null;
+let rollAgain = false;
+let rolledTimes = 0;
+
 $(function () {
 
     socket = io();
@@ -38,6 +41,9 @@ $(function () {
         } 
 
         gameInfo = msg;
+
+        // Hide rolled Eyes if not turn
+        if (gameInfo.turn != color) $("#rollResult").css("visibility", "hidden");
 
         // Show online Users
         $('#onlineUsers').html(gameInfo.onlineUsers);
@@ -65,7 +71,8 @@ $(function () {
             $("#yellowButton").prop("disabled", gameInfo.yellow != null);
             $("#greenButton").prop("disabled", gameInfo.green != null);
         }
-        //$('#dice').prop("disabled", !color || gameInfo.turn != color || rolledEyes != null);
+        $('#dice').prop("disabled", !color || gameInfo.turn != color);
+        $('#skip').prop("disabled", !color || gameInfo.turn != color);
 
         // Show Player names
         $("#redText").html(gameInfo.red);
@@ -86,6 +93,10 @@ $(function () {
         $("#rollResult").css("visibility", "visible")
 
         rolledEyes = msg;
+        /*
+        rollAgain = msg == 6 || isTeamAtHome(color);
+        rolledTimes = rollAgain ? rolledTimes + 1 : 0;
+        */
     });
 
 });
@@ -111,7 +122,13 @@ function chooseColor(colorPls){
 // sends request to server to roll a dice
 function rollIt(){
     socket.emit("rollTheDice");
-    //$('#dice').prop("disabled", true);
+    $('#dice').prop("disabled", true);
+}
+
+// skips turn to next player
+function skipTurn(){
+    socket.emit("skipTurn");
+    $('#skip').prop("disabled", true);
 }
 
 // Remove all Stones in a given array
