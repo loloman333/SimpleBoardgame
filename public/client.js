@@ -101,6 +101,11 @@ $(function () {
         $('#dice').prop("disabled", false);
     });
 
+    socket.on("rollAgain2", function(){
+        rolledEyes = null;
+        $('#dice').prop("disabled", false);
+    });
+
 });
 
 // Opens a popup to enter the name
