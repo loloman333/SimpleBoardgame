@@ -57,6 +57,7 @@ var yellowOrder = [ "f38", "f36", "f34", "f32", "f26", "f25", "f24", "f23", "f22
                     "gy1", "gy2", "gy3", "gy4"
                 ];
 
+var turnCounter = 0;
              
 app.use(express.static(__dirname + '/public'));
 
@@ -158,12 +159,28 @@ io.on('connection', function (socket) {
         if (msg.colorP == "yellow") order = yellowOrder;
 
         // Geklickter stein steht in Homebase
-        if (msg.id.includes('h') ){
-            if (msg.rolledEyes != 6){
-                socket.emit('myError', 'Nur mit Sex kannst du aus dem Haus gehen!');
-                return;
-            } else {
+        if (msg.id.includes('h')){
+            if (msg.rolledEyes == 6){
                 newPos = order[0];
+                turnCounter = 0;
+            } else if(chilling(color)){
+
+                console.log("Alle chillen");
+                if (turnCounter < 2){
+                    console.log("Du hast noch ne Chance brudi");
+                    turnCounter++;
+                    socket.emit("rollAgain");
+                    return;
+                } else {
+                    console.log("Sorry keine Chance mehr brudi");
+                    turnCounter = 0;
+                    gameInfo.turn = nextTurn(gameInfo.turn);
+                    io.emit("gameStatus", gameInfo);
+                    return;
+                }
+            } else {
+                console.log("Du chühst goar ned");
+                return;
             }
         //Geklickter Stein steht nicht im Haus
         } else {             
@@ -217,9 +234,14 @@ io.on('connection', function (socket) {
             socket.emit('myError', color + ' has won the game!');
             gameInfo = gameInfoTemp;
         }
-
-        gameInfo.turn = nextTurn(gameInfo.turn);
-
+        
+        // Zug weitergeben
+        if (msg.rolledEyes != 6){
+            gameInfo.turn = nextTurn(gameInfo.turn);
+        } else {
+            socket.emit("rollAgain");
+        }    
+        
         io.emit('gameStatus', gameInfo);
 
     });
@@ -292,9 +314,42 @@ function checkWin(color){
 }
 
 function nextTurn(curTurn){
+
+
+
+
     return curTurn == 'yellow' ? 'red' : 
            curTurn == 'red' ? 'blue' : 
            curTurn == 'blue' ? 'green' : 
            'yellow'; 
+}
+
+function chilling(color){
+
+    if (color == 'red'){
+        if (gameInfo.redStones[0].includes('f') || 
+            gameInfo.redStones[1].includes('f') ||
+            gameInfo.redStones[2].includes('f') ||
+            gameInfo.redStones[3].includes('f')) return false;
+    }
+    if (color == 'blue'){
+        if (gameInfo.blueStones[0].includes('f') || 
+            gameInfo.blueStones[1].includes('f') ||
+            gameInfo.blueStones[2].includes('f') ||
+            gameInfo.blueStones[3].includes('f')) return false;
+    }
+    if (color == 'green'){
+        if (gameInfo.greenStones[0].includes('f') || 
+            gameInfo.greenStones[1].includes('f') ||
+            gameInfo.greenStones[2].includes('f') ||
+            gameInfo.greenStones[3].includes('f')) return false;
+    }
+    if (color == 'yellow'){
+        if (gameInfo.yellowStones[0].includes('f') || 
+            gameInfo.yellowStones[1].includes('f') ||
+            gameInfo.yellowStones[2].includes('f') ||
+            gameInfo.yellowStones[3].includes('f')) return false;
+    }
+    return true;
 }
     

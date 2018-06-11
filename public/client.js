@@ -84,19 +84,21 @@ $(function () {
 
     // Error Message from Server
     socket.on("myError", function(msg){
-        alert(msg);
+        alert(msg);turnCounter = 0;
     });
 
     // Server hat für User gewürfelt
     socket.on("rolledEyes", function(msg){
         $("#rolledEyes").html(msg);
-        $("#rollResult").css("visibility", "visible")
+        $("#rollResult").css("visibility", "visible");  
 
         rolledEyes = msg;
-        /*
-        rollAgain = msg == 6 || isTeamAtHome(color);
-        rolledTimes = rollAgain ? rolledTimes + 1 : 0;
-        */
+    });
+
+    socket.on("rollAgain", function(){
+        rolledEyes = null;
+        $("#rollResult").css("visibility", "hidden");
+        $('#dice').prop("disabled", false);
     });
 
 });
